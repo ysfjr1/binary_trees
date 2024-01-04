@@ -1,27 +1,37 @@
-
 #include "binary_trees.h"
 /**
- * binary_tree_is_full - checking if the binary tree is full
- * @tree: the tree to be evaluated
- * Return: 1 if the node is a leaf and returning the highest node;
+ * binary_tree_is_full - function that says if a tree is full or not
+ * a tree is full if it has tow or none children
+ * @tree: tree to check
+ * Return: 1 if it is a full 0 if not
  */
 int binary_tree_is_full(const binary_tree_t *tree)
 {
-	int right, left;
+	int left = 0, right = 0;
 
-	right = left = 0;
-	if (
-		tree == NULL ||
-		(tree->left == NULL && tree->right != NULL) ||
-		(tree->left != NULL && tree->right == NULL)
-	)
+	if (tree == NULL)
+	{
 		return (0);
-	if (tree->left == NULL && tree->right == NULL)
-		return (1);
-
-	left = binary_tree_is_full(tree->left);
-	right = binary_tree_is_full(tree->right);
-	if (right == 1 && left == 1)
-		return (1);
-	return (0);
+	}
+	else
+	{
+		if (tree->left && tree->right)
+		{
+			left = binary_tree_is_full(tree->left);
+			right = binary_tree_is_full(tree->right);
+			if (left == 0 || right == 0)
+			{
+				return (0);
+			}
+			return (1);
+		}
+		else if (!tree->left && !tree->right)
+		{
+			return (1);
+		}
+		else
+		{
+			return (0);
+		}
+	}
 }
